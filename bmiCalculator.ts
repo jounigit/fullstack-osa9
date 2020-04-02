@@ -19,13 +19,13 @@
 //   }
 
     export const calculateBmi = (pituus: number, paino: number) => {
-    pituus = pituus * 0.01
-    const bmi = paino / ( pituus * pituus ) 
+    pituus = pituus * 0.01;
+    const bmi = paino / ( pituus * pituus );
     // console.log(bmi)
-    let result = 25 <= bmi ? 'Overweight' : 19 <= bmi ? 'Normal (healthy weight)' : 'Underweight'
-    console.log(result) 
-    return result
-}
+    const result = 25 <= bmi ? 'Overweight' : 19 <= bmi ? 'Normal (healthy weight)' : 'Underweight';
+    console.log(result);
+    return result;
+};
 
 // try {
 //     const { value1, value2 } = parseArguments(process.argv);

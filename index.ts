@@ -9,22 +9,22 @@ app.get('/bmi', (req, res) => {
   if (!height || !weight) {
     res.status(400).json({ 
       error: 'content missing' 
-    })
+    });
   }
 
   if ( isNaN(height) || isNaN(weight) ) {
     res.status(400).json({ 
       error: 'malformatted parameters' 
-    })
+    });
   }
 
   const bmiValue = calculateBmi( height, weight );
   console.log( '= bmi == ', bmiValue );
-  let resData = {
+  const resData = {
     weight: Number(req.query.weight),
     height: Number(req.query.height),
     bmi: bmiValue
-  }
+  };
 
   res.send(resData);
 });
@@ -38,4 +38,4 @@ const PORT = 3003;
 
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
-})
+});
