@@ -1,7 +1,13 @@
 import express from 'express';
 import { calculateBmi } from './bmiCalculator';
+import { calculateExercises } from './exerciseCalculator';
+import { isArray } from 'util';
 const app = express();
 
+app.use(express.json());
+
+
+//*************** bmi ***********************/
 app.get('/bmi', (req, res) => {
   const height = req.query.height;
   const weight = req.query.weight;
@@ -29,7 +35,30 @@ app.get('/bmi', (req, res) => {
   res.send(resData);
 });
 
+//*************** exercises ***********************/ 
+app.post('/exercises', (req, res) => {
+  const body = req.body;
+  const arrValues = [body.target].concat(body.daily_exercises);
+  console.log('= BODY =', arrValues);
 
+  if (!body.daily_exercises || !body.target) {
+    return res.status(400).json({ 
+      error: 'content missing' 
+    });
+  }
+
+  if ( isNaN(body.target) || !isArray(body.daily_exercises) ) {
+    res.status(400).json({ 
+      error: 'malformatted parameters' 
+    });
+  }
+
+  const exerciseData = calculateExercises(arrValues);
+
+  return res.json(exerciseData);
+});
+
+//*************** hello ***********************/ 
 app.get('/hello', (_req, res) => {
   res.send('Hello Full Stack!');
 });

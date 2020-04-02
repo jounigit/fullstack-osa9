@@ -9,16 +9,16 @@ interface ExerciseInfo {
     average: number;
 }
 
-const parseArgs = (args: Array<string>) => {
-    args.forEach( arg => {
-        if (isNaN(Number(arg))) {
-            throw new Error('Provided values were not numbers!');
-        }
-    });
-    return args.map( a => Number(a) );
-};
+// const parseArgs = (args: Array<string>) => {
+//     args.forEach( arg => {
+//         if (isNaN(Number(arg))) {
+//             throw new Error('Provided values were not numbers!');
+//         }
+//     });
+//     return args.map( a => Number(a) );
+// };
 
-const calculateExercises = (args: Array<number>): ExerciseInfo => {
+export const calculateExercises = (args: Array<number>): ExerciseInfo => {
     const trainingData = args.slice(1);
     const periodLength: number = trainingData.length;
     const sum: number = trainingData.reduce((x, y) => x + y);
@@ -37,9 +37,9 @@ const calculateExercises = (args: Array<number>): ExerciseInfo => {
     };
 };
 
-try {
-    const argsNumber = parseArgs( process.argv.slice(2) );
-    console.log(calculateExercises(argsNumber));
-  } catch (e) {
-    console.log('Error, something bad happened, message: ', e.message);
-  }
+// try {
+//     const argsNumber = parseArgs( process.argv.slice(2) );
+//     console.log(calculateExercises(argsNumber));
+//   } catch (e) {
+//     console.log('Error, something bad happened, message: ', e.message);
+//   }
