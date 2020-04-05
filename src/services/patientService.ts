@@ -1,8 +1,11 @@
 import patients from '../../data/patients';
 import { 
+    NewPatientEntry,
     NonSensitivePatientEntry, 
     PatientEntry 
 } from '../types';
+
+import randomstring from 'randomstring';
 
 
 const getEntries = (): PatientEntry[] => {
@@ -17,11 +20,18 @@ const getNonSensitiveEntries = (): NonSensitivePatientEntry[] => {
         gender,
         occupation
     }));
-  };
+};
 
-const addEntry = () => {
-    return null;
+const addEntry = ( entry: NewPatientEntry): PatientEntry => {
+    
+  const newPatientEntry = {
+    id: randomstring.generate(),
+    ...entry
   };
+  
+  patients.push(newPatientEntry);
+  return newPatientEntry;
+};
 
 export default {
     getEntries,
