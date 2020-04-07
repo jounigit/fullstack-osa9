@@ -1,18 +1,92 @@
 import React from 'react';
-import { Courses } from '../types';
+import { CoursePart } from '../index';
 
-export const Content: React.FC<Courses> = ( props: Courses ) => {
+export const Part = ( {part}: {part: CoursePart} ) => {
+    switch (part.name) {
+            case "Fundamentals":
+                return (
+                    <>
+                    <p><b>{part.name}</b> {part.exerciseCount}</p>
+                    <p>{ part.description }</p>
+                    </>
+                );
+            case "Using props to pass data":
+                return (
+                    <>
+                    <p><b>{part.name}</b> {part.exerciseCount}</p>
+                    <p>GroupProjectCount { part.groupProjectCount }</p>
+                    </>
+                );
+            case "Deeper type usage":
+                return (
+                    <>
+                    <p><b>{part.name}</b> {part.exerciseCount}</p>
+                    <p>{ part.description }</p>
+                    <p>SubmissionLink: { part.exerciseSubmissionLink }</p>
+                    </>
+                );
+            case "Something special":
+                return (
+                    <>
+                    <p><b>{part.name}</b> {part.exerciseCount}</p>
+                    <p>{ part.description }</p>
+                    </>
+                );
+        }
+  }
+
+export const Content = ({ parts }: { parts: CoursePart[] }) => {
+    console.log('= CONTENT =', parts)
     return (
-       <React.Fragment>
-           {
-               props.courses.map(( course, index ) => {
-               return (<p key={index}>{course.name} {course.exerciseCount}</p>);
-               })
-           }
-       </React.Fragment>
-    )
-}
+       <>
+            {
+                parts.map(( part, index ) => {
+                    return (
+                        <div key={index}>
+                            <Part part={ part } />
+                        </div>
+                    )
+                })
+            }
+       </>
+    );
+};
 
-// props.courses.map((course: Course, index: number) => (
-//     <p key={index}>{ course.name }</p>
-//     ))
+// const Part = ( {part}: {part: CoursePart} ) => {
+//     const showPart = (part: CoursePart) => {
+//         switch (part.name) {
+//             case "Fundamentals":
+//                 return (
+//                     <>
+//                     <p><b>{part.name}</b> {part.exerciseCount}</p>
+//                     <p>{ part.description }</p>
+//                     </>
+//                 );
+//             case "Using props to pass data":
+//                 return (
+//                     <>
+//                     <p><b>{part.name}</b> {part.exerciseCount}</p>
+//                     <p>GroupProjectCount { part.groupProjectCount }</p>
+//                     </>
+//                 );
+//             case "Deeper type usage":
+//                 return (
+//                     <>
+//                     <p><b>{part.name}</b> {part.exerciseCount}</p>
+//                     <p>{ part.description }</p>
+//                     <p>SubmissionLink: { part.exerciseSubmissionLink }</p>
+//                     </>
+//                 );
+//             case "Something special":
+//                 return (
+//                     <>
+//                     <p><b>{part.name}</b> {part.exerciseCount}</p>
+//                     <p>{ part.description }</p>
+//                     </>
+//                 );
+//         }
+//     }       
+//     return (
+//         <> { showPart(part) } </>
+//     )
+// }
