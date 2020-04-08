@@ -27,7 +27,6 @@ const getPublicPatients = (): PublicPatient[] => {
 //*********** get one  '****************************/
 const findById = (id: string): Patient | undefined => {
     const patient = patients.find(p => p.id === id);
-    console.log('= Service =', patient);
     return patient;
 };
 
