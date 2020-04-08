@@ -1,19 +1,29 @@
 import express from 'express';
 import patientService from '../services/patientService';
-// import patientEntries from '../../data/patients';
-import toNewPatientEntry from '../utils';
+import toNewPatient from '../utils';
 
 const router = express.Router();
 
 router.get('/', (_req, res) => {
-    res.send(patientService.getNonSensitiveEntries());
+    res.send(patientService.getPublicPatients());
+});
+
+router.get('/:id', (req, res) => {
+    const patient = patientService.findById(String(req.params.id));
+    
+    console.log('= Router =', patient);
+    if (patient) {
+      res.send(patient);
+    } else {
+      res.sendStatus(404);
+    }
 });
 
   router.post('/', (req, res) => {
     try {
-      const newPatientEntry = toNewPatientEntry(req.body);
+      const newPatient = toNewPatient(req.body);
         
-      const addedEntry = patientService.addEntry(newPatientEntry);
+      const addedEntry = patientService.addEntry(newPatient);
       res.json(addedEntry);
     } catch (e) {
       res.status(400).send(e.message); 

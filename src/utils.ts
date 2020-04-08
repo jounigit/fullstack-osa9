@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { NewPatientEntry, Gender } from './types';
+import { NewPatient, Gender } from './types';
 
 //*********** parse string ******************/ 
 const isString = (text: any): text is string => {
@@ -38,16 +38,17 @@ const parseGender = (gender: any): Gender => {
   return gender;
 };
 
-const toNewPatientEntry = (object: { name: any; dateOfBirth: any; ssn: any; gender: any; occupation: any }): NewPatientEntry => {
-  const newEntry: NewPatientEntry = {
+const toNewPatient = (object: { name: any; dateOfBirth: any; ssn: any; gender: any; occupation: any }): NewPatient => {
+  const newEntry: NewPatient = {
         name: parseString(object.name),
         dateOfBirth: parseDate(object.dateOfBirth),
         ssn: parseString(object.ssn),
         gender: parseGender(object.gender),
         occupation: parseString(object.occupation),
+        entries: []
     };
 
     return newEntry;
 };
 
-export default toNewPatientEntry;
+export default toNewPatient;
