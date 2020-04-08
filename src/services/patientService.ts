@@ -27,6 +27,7 @@ const getPublicPatients = (): PublicPatient[] => {
 //*********** get one  '****************************/
 const findById = (id: string): Patient | undefined => {
     const patient: Patient = patients.find(p => p.id === id);
+    
     const patientRes: Patient = {
         name: patient.name,
         dateOfBirth: patient.dateOfBirth,
