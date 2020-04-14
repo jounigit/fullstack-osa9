@@ -4,7 +4,7 @@ import axios from "axios";
 import { Header, Container, Icon } from "semantic-ui-react";
 import { useParams } from "react-router-dom";
 import { apiBaseUrl } from "../constants";
-import { useStateValue } from "../state";
+import { useStateValue, updatePatient } from "../state";
 import { Patient } from "../types";
 
 const PatientPage: React.FC = () => {
@@ -20,7 +20,7 @@ const PatientPage: React.FC = () => {
             );
 
         patientToShow = patient;
-        dispatch({ type: "UPDATE_PATIENT", payload: patient});   
+        dispatch(updatePatient(patient));
 
         } catch (e) {
             console.error(e);

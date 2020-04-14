@@ -19,3 +19,8 @@ export interface Patient {
   dateOfBirth?: string;
   visited?: boolean | undefined;
 }
+
+export interface SetPatientList {
+  type: "SET_PATIENT_LIST";
+  payload: Patient[];
+}
