@@ -9,6 +9,10 @@ export type Action =
   | {
       type: "ADD_PATIENT";
       payload: Patient;
+    }
+  | {
+      type: "UPDATE_PATIENT";
+      payload: Patient;
     };
 
 export const reducer = (state: State, action: Action): State => {
@@ -23,6 +27,7 @@ export const reducer = (state: State, action: Action): State => {
           ),
           ...state.patients
         }
+        
       };
     case "ADD_PATIENT":
       return {
@@ -31,6 +36,17 @@ export const reducer = (state: State, action: Action): State => {
           ...state.patients,
           [action.payload.id]: action.payload
         }
+      };
+    case "UPDATE_PATIENT":
+      const items = state.patients;
+      // console.log('=Reducer before update=', items);
+      const toUpdate = {...action.payload, visited: true};
+      // toUpdate.visited = true;
+      const newArray = Object.assign([], items, {[action.payload.id]: toUpdate});
+      // console.log('=Reducer update=', newArray);
+      return {
+        ...state,
+        patients: newArray
       };
     default:
       return state;
