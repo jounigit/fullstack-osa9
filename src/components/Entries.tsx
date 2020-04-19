@@ -1,14 +1,16 @@
 import React, { Fragment } from "react";
 import { Entry } from '../types';
+import { useStateValue } from "../state";
 
 const EntryContent = ({entry}: {entry: Entry}) => {
+    const [{ diagnosis }, ] = useStateValue();
     return (
         <>
         <p> {entry.date} {entry.description} </p>
         <ul>
             {
                 entry.diagnosisCodes?.map(( code, i ) => 
-                    <li key={i}>{code}</li>
+            <li key={i}>{code} {diagnosis[code].name}</li>
                 )
             }                    
         </ul>

@@ -31,12 +31,12 @@ const PatientPage: React.FC = () => {
 
     patientToShow && !hasVisited(patientToShow) && fetchPatient();
 
-    console.log('=Patient=', patientToShow);
+    // console.log('=Patient=', patientToShow);
     
     const showPatient = (param: Patient) => {
         const icon =   param.gender === 'male' ? 'mars' : 
         param?.gender === 'female' ? 'venus' : 'transgender';
-        console.log('=Show param=', param.entries);
+        // console.log('=Show param=', param.entries);
         const showEntries = param.entries && <Entries entries={param.entries} />;
         return (
             <Container>
