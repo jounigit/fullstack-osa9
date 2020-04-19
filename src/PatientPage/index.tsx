@@ -6,6 +6,7 @@ import { useParams } from "react-router-dom";
 import { apiBaseUrl } from "../constants";
 import { useStateValue, updatePatient } from "../state";
 import { Patient } from "../types";
+import { Entries } from "../components/Entries";
 
 const PatientPage: React.FC = () => {
     const [state, dispatch] = useStateValue();
@@ -18,42 +19,25 @@ const PatientPage: React.FC = () => {
             const { data: patient } = await axios.get<Patient>(
                 `${apiBaseUrl}/patients/${id}`
             );
-
         patientToShow = patient;
         dispatch(updatePatient(patient));
-
         } catch (e) {
             console.error(e);
         }
     };
-
-    // const hasVisited = (param: Patient|Required<Pick<Patient, 'visited'>>): param is Required<Patient> =>
-    // typeof param.visited === 'boolean';
 
     // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     const hasVisited = (param: Patient): boolean => param.visited!;
 
     patientToShow && !hasVisited(patientToShow) && fetchPatient();
 
-    // try {
-    //     console.log('=TRY==');
-    //     !hasVisited(patientToShow) && fetchPatient();
-    // } catch (e) {
-    //     console.log('=CATCH==');
-    // }
-
-    // const hasVisited = (param: Patient): 
-    // param is Patient & Required<Pick<Patient, 'visited'>> => !!param.visited;
-
-    // if ( !Object.prototype.hasOwnProperty.call(patientToShow, 'visited') ) {
-    //     fetchPatient();
-    // }
-
     console.log('=Patient=', patientToShow);
     
     const showPatient = (param: Patient) => {
         const icon =   param.gender === 'male' ? 'mars' : 
         param?.gender === 'female' ? 'venus' : 'transgender';
+        console.log('=Show param=', param.entries);
+        const showEntries = param.entries && <Entries entries={param.entries} />;
         return (
             <Container>
                 <Header as='h2'>
@@ -62,6 +46,8 @@ const PatientPage: React.FC = () => {
                 </Header>
                 <p style={{ marginBottom: 5 }}>ssn: {param.ssn}</p>
                 <p>occupation: {param.occupation}</p>
+                <Header as='h3' content='entries' />
+                { showEntries }
             </Container>
         );
     };
@@ -70,8 +56,7 @@ const PatientPage: React.FC = () => {
         <div className="App"> 
             {
                 patientToShow && showPatient(patientToShow)
-            }
-            
+            }            
         </div>
     );
 };
