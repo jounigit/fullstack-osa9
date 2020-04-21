@@ -31,8 +31,10 @@
   "dependencies": {
     "@types/cors": "^2.8.6",
     "@types/randomstring": "^1.1.6",
+    "@types/uuid": "^7.0.2",
     "cors": "^2.8.5",
     "express": "^4.17.1",
-    "randomstring": "^1.1.5"
+    "randomstring": "^1.1.5",
+    "uuid": "^7.0.3"
   }
 }

@@ -3,7 +3,8 @@ import {
     NewPatient,
     PublicPatient, 
     Patient,
-    Entry
+    Entry,
+    // NewEntry
 } from '../types';
 
 import randomstring from 'randomstring';
@@ -84,7 +85,7 @@ const findById = (id: string): Patient | undefined  => {
 };
 
 //*********** add new  '****************************/
-const addEntry = ( entry: NewPatient): Patient => {
+const addPatient = ( entry: NewPatient): Patient => {
     
   const newPatient = {
     id: randomstring.generate(),
@@ -95,47 +96,26 @@ const addEntry = ( entry: NewPatient): Patient => {
   return newPatient;
 };
 
+//*********** add entry  '****************************/
+const addEntry = (id: string, entry: Entry): Patient | undefined => {
+    const patient = patients.find(p => p.id === id);
+
+    let updatedEntries = null;
+
+    if (patient === undefined) { return undefined; }  
+    updatedEntries =  patient.entries.concat(entry);
+ 
+    // console.log('=Updated Entries=', updatedEntries);
+    const updatedPatient = {...patient, entries: updatedEntries};
+    // console.log('=================');
+    // console.log('=Updated Patients=', updatedPatient);
+    return updatedPatient;
+};
+
 export default {
     getEntries,
+    addPatient,
     addEntry,
     getPublicPatients,
     findById
 };
-
-// ***********
-// const entries = patient.entries.map(({ ...entry }: Entry) => ({
-//     id,
-//     date: entry.date,
-//     type: entry.type,
-//     specialist: entry.specialist,
-//     diagnosisCodes: entry.diagnosisCodes,
-//     description: entry.description,
-//     getType( ),
-//     // employerName: entry.employerName,
-//     // discharge: entry.discharge
-// }));
-
-// const getType = (
-//     type: string, 
-//     healthCheckRating?: number, 
-//     employerName?: string,
-//     sickLeave?: SickLeave,
-//     discharge?: Discharge,
-//      ) => {
-//     switch (type) {
-//         case "HealthCheck":
-//             return {
-//                 // type, 
-//                 healthCheckRating };
-//         case "OccupationalHealthcare":
-//             return {
-//                 employerName,
-//                 sickLeave
-//             };
-//         case "Hospital":
-//             return {
-//                 discharge
-//             };
-//         default: return undefined;
-//     }
-// };
