@@ -19,6 +19,20 @@ interface Props {
   onCancel: () => void;
 }
 
+//*********** parse string ******************/ 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const isString = (text: any): text is string => {
+  return typeof text === 'string' || text instanceof String;
+};
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+// const parseString = (param: any): string => {
+// if (!param || !isString(param)) {
+//   throw new Error('Incorrect or missing input: ' + param);
+// }  
+// return param;
+// };
+
 
 export const AddEntryForm: React.FC<Props> = ({ onSubmit, onCancel }) => {
   const [{ diagnosis }] = useStateValue();
@@ -36,18 +50,33 @@ export const AddEntryForm: React.FC<Props> = ({ onSubmit, onCancel }) => {
     }}
       onSubmit={onSubmit}
       validate={values => {
+        const dateFormat = /^\d{4}-\d{2}-\d{2}$/;
         const requiredError = "Field is required";
+        const stringError = "Field must be a string";
+        const formatError = "Field is not in right format";
         const errors: { [field: string]: string } = {};
         if (!values.description) {
           errors.description = requiredError;
         }
+        if (!isString(values.description)) {
+          errors.description = stringError;
+        }
         if (!values.date) {
           errors.date = requiredError;
+        }
+        if (!dateFormat.exec(values.date)) {
+          errors.date = formatError;
         }
         if (!values.specialist) {
           errors.specialist = requiredError;
         }
+        if (!isString(values.specialist)) {
+          errors.specialist = stringError;
+        }
         if (!values.diagnosisCodes) {
+          errors.diagnosisCodes = requiredError;
+        }
+        if (!values.healthCheckRating) {
           errors.diagnosisCodes = requiredError;
         }
         return errors;
