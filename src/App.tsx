@@ -34,7 +34,6 @@ const App: React.FC = () => {
         const { data: diagnosisListFromApi } = await axios.get<Diagnosis[]>(
           `${apiBaseUrl}/diagnoses`
         );
-        console.log('=DIGNASES=', diagnosisListFromApi);
         dispatch(setDiagnoseList(diagnosisListFromApi));
       } catch (e) {
         console.error(e);

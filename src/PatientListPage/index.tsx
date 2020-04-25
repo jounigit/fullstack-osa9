@@ -12,8 +12,6 @@ import { Link } from "react-router-dom";
 
 const PatientListPage: React.FC = () => {
   const [{ patients }, dispatch] = useStateValue();
-  // console.log('=State=', patients);
-      // console.log('=obj keys=', Object.keys(patients));
 
   const [modalOpen, setModalOpen] = React.useState<boolean>(false);
   const [error, setError] = React.useState<string | undefined>();
