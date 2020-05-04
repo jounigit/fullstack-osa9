@@ -81,17 +81,3 @@ export type Entry =
 
 /************************************************ */
 
-// export type NewEntry = {
-//     description: string;
-//     date: string;
-//     type: string;
-//     specialist: string;
-//     diagnosisCodes?: Array<Diagnosis['code']>;
-//     employerName?: string;
-//     sickLeave?: SickLeave;
-//     healthCheckRating?: number;
-//     discharge?: Discharge;
-// };
-
-
-// export type NewEntry = Omit<BaseEntry, 'id' | 'diagnosisCodes'>;

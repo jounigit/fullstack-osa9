@@ -97,7 +97,7 @@ const addPatient = ( entry: NewPatient): Patient => {
 };
 
 //*********** add entry  '****************************/
-const addEntry = (id: string, entry: Entry): Entry[] | undefined => {
+const addEntry = (id: string, entry: Entry): Entry | undefined => {
     const patient = patients.find(p => p.id === id);
 
     let updatedEntries = null;
@@ -109,7 +109,7 @@ const addEntry = (id: string, entry: Entry): Entry[] | undefined => {
     const updatedPatient = {...patient, entries: updatedEntries};
     // console.log('=================');
     console.log('=Updated Patients=', updatedPatient);
-    return updatedEntries;
+    return entry;
 };
 
 export default {
