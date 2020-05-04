@@ -4,12 +4,9 @@ import { Entry,
     HealthCheckEntry,
     HospitalEntry,
 } from '../types';
-// import { useStateValue } from "../state";
 import { Segment, Header, Icon } from "semantic-ui-react";
 
 const Hospital: React.FC<{entry: HospitalEntry}> = ({entry}) => {
-    // const healtColorList = {0:'green', 1: 'yellow', 2: 'orange', 3: 'red'};
-    // const color = ;
     return (
         <Segment>
             <Header as='h3'>
@@ -28,9 +25,9 @@ const Hospital: React.FC<{entry: HospitalEntry}> = ({entry}) => {
     );
 };
 
-const getColor = (rateNumber: number) => {
-    return rateNumber === 0 ? "green" : 
-    rateNumber === 1 ? "yellow" : rateNumber === 2 ? "orange" : "red";
+const getColor = (rateNumber: number | string) => {
+    return rateNumber === 0 ? "green" : rateNumber === "0" ? "green" : 
+    rateNumber === "1" ? "yellow" : rateNumber === "2" ? "orange" : "red";
 };
 
 const HealthCheck: React.FC<{entry: HealthCheckEntry}> = ({entry}) => {

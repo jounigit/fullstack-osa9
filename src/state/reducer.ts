@@ -85,7 +85,7 @@ export const reducer = (state: State, action: Action): State => {
       const toUpdateEntries = [...patient.entries, action.payload];
       // const toUpdatePatient = {...patient.entries, entries: action.payload};
       const toUpdatePatient = {...patient, entries: toUpdateEntries};
-      console.log('=PATIENT Reducer=', toUpdatePatient);
+      // console.log('=PATIENT Reducer=', toUpdatePatient);
       const updatedPatients = Object.assign([], state.patients, {[action.id]: toUpdatePatient});
       return {
         ...state,

@@ -4,57 +4,11 @@ export interface Diagnosis {
   latin?: string;
 }
 
+/*************** patient types ********************** */
 export enum Gender {
-  Male = "male",
-  Female = "female",
-  Other = "other"
-}
-
-export enum HealthCheckRating {
-  "Healthy" = 0,
-  "LowRisk" = 1,
-  "HighRisk" = 2,
-  "CriticalRisk" = 3
-}
-
-export interface HealthCheckEntry extends BaseEntry {
-  type: "HealthCheck";
-  healthCheckRating: HealthCheckRating;
-}
-
-export interface OccupationalHealthcareEntry extends BaseEntry {
-  type: "OccupationalHealthcare";
-  employerName: string;
-  sickLeave?: SickLeave;
-}
-
-export interface HospitalEntry extends BaseEntry {
-  type: "Hospital";
-  discharge?: Discharge;
-}
-
-export type Entry =
-| HospitalEntry
-| OccupationalHealthcareEntry
-| HealthCheckEntry;
-
-export interface BaseEntry {
-  id: string;
-  description: string;
-  date: string;
-  type: string;
-  specialist: string;
-  diagnosisCodes?: Array<Diagnosis['code']>;
-}
-
-export interface Discharge {
-  date: string;
-  criteria: string;
-}
-
-export interface SickLeave {
-  startDate: string;
-  endDate: string;
+  Male = 'male', 
+  Female = 'female',
+  Other = 'other' 
 }
 
 export interface Patient {
@@ -71,4 +25,59 @@ export interface Patient {
 export interface SetPatientList {
   type: "SET_PATIENT_LIST";
   payload: Patient[];
+}
+
+/************** entry types *********************** */
+
+export interface BaseEntry {
+  id: string;
+  description: string;
+  date: string;
+  type: string;
+  specialist: string;
+  diagnosisCodes?: Array<Diagnosis['code']>;
+}
+
+export enum HealthCheckRating {
+  "Healthy" = 0,
+  "LowRisk" = 1,
+  "HighRisk" = 2,
+  "CriticalRisk" = 3
+}
+
+export interface HealthCheckEntry extends BaseEntry {
+  type: "HealthCheck";
+  healthCheckRating: HealthCheckRating;
+}
+
+export interface SickLeave {
+  startDate: string;
+  endDate: string;
+}
+
+export interface OccupationalHealthcareEntry extends BaseEntry {
+  type: "OccupationalHealthcare";
+  employerName: string;
+  sickLeave?: SickLeave;
+}
+
+export interface Discharge {
+  date: string;
+  criteria: string;
+}
+
+export interface HospitalEntry extends BaseEntry {
+  type: "Hospital";
+  discharge?: Discharge;
+}
+
+export type Entry =
+| HospitalEntry
+| OccupationalHealthcareEntry
+| HealthCheckEntry;
+
+export enum EntryType {
+  HealthCheck = "HealthCheck",
+  Hospital = "Hospital",
+  OccupationalHealthcare = "OccupationalHealthcare"
 }
