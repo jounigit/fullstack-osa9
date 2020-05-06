@@ -30,13 +30,6 @@ const parseDate = (date: any): string => {
   return date;
 };
 
-const parseDateOrUndefined = (date: any): string => {
-  if (!isString(date) || !isDate(date)) {
-      throw new Error('Incorrect date: ' + date);
-  }
-  return date;
-};
-
 //*********** parse gender ******************/
 const isGender = (param: any): param is Gender => {
   return Object.values(Gender).includes(param);
