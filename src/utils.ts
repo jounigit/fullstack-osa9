@@ -30,7 +30,14 @@ const parseDate = (date: any): string => {
   return date;
 };
 
-//*********** parse date ******************/
+const parseDateOrUndefined = (date: any): string => {
+  if (!isString(date) || !isDate(date)) {
+      throw new Error('Incorrect date: ' + date);
+  }
+  return date;
+};
+
+//*********** parse gender ******************/
 const isGender = (param: any): param is Gender => {
   return Object.values(Gender).includes(param);
 };
@@ -101,8 +108,8 @@ export const toNewEntry = (object: any): Entry => {
         ...baseEntry,
         type: entryType,
         discharge: {
-          date: parseDate(object.discharge.date),
-          criteria: parseString(object.discharge.criteria),
+          date: object.discharge.date,
+          criteria: object.discharge.criteria,
         }
       };
     case "OccupationalHealthcare":
@@ -111,8 +118,8 @@ export const toNewEntry = (object: any): Entry => {
         type: entryType,
         employerName: parseString(object.employerName),
         sickLeave: {
-          startDate: parseString(object.sickLeave.startDate),
-          endDate: parseString(object.sickLeave.endDate),
+          startDate: object.sickLeave.startDate,
+          endDate: object.sickLeave.endDate,
         }
       };
       default:
