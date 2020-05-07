@@ -61,7 +61,7 @@ export const healthForm: React.FC<FormProps> = ({ onSubmit, onCancel, diagnosis 
             }
             if (!values.date) {
               errors.date = requiredError;
-            } else if (!/^\d{4}-\d{2}-\d{2}$/.exec(values.date)) {
+            } else if (!/^\d{4}-\d{2}-\d{2}$/.test(values.date)) {
               errors.date = formatError;
             }
             if (!values.specialist) {

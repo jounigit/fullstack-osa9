@@ -103,6 +103,10 @@ const PatientPage: React.FC = () => {
             /> 
             <Button onClick={buttonActions(EntryType.HealthCheck)}>Add New HealthEntry</Button>
             <Button onClick={buttonActions(EntryType.Hospital)}>Add New HospitalEntry</Button>         
+            <Button onClick={buttonActions(EntryType.OccupationalHealthcare)}>
+                Add New OccupationalHealthcareEntry
+            </Button>
+            
         </div>
     );
 };

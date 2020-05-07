@@ -1,18 +1,19 @@
 import React from "react";
-import {   
-  HospitalEntry,
-  Diagnosis
+import {
+  Diagnosis,
+  OccupationalHealthcareEntry,
+  // EntryType
 } from '../types';
 import { Grid, Button } from "semantic-ui-react";
 import { Field, Formik, Form } from "formik";
+
+// import { useStateValue } from "../state";
 import { TextField } from "./FormField";
 import { DiagnosisSelection } from "../AddPatientModal/FormField";
 
-export type HospitalEntryFormValues = Omit<HospitalEntry, "id">;
+export type OccupationalHealthcareFormValues = Omit<OccupationalHealthcareEntry, "id">;
 
-export type EntryFormValues = 
-| HospitalEntryFormValues
-;
+export type EntryFormValues = | OccupationalHealthcareFormValues;
 
 interface FormProps {
     onSubmit: (values: EntryFormValues) => void;
@@ -26,18 +27,19 @@ const isString = (text: any): text is string => {
     return typeof text === 'string' || text instanceof String;
   };
 
-export const hospitalForm: React.FC<FormProps> = ({ onSubmit, onCancel, diagnosis }) => 
+export const occupationalForm: React.FC<FormProps> = ({ onSubmit, onCancel, diagnosis }) => 
 <Formik
     initialValues={{
     description: "",
     date: "",
-    type: "Hospital",
+    type: "OccupationalHealthcare",
     specialist: "",
     diagnosisCodes: [],
-    discharge: {
-        date: "",
-        criteria: "",
-      }
+    employerName: "",
+    sickLeave: {
+      startDate: "",
+      endDate: ""
+    }
     }}
     onSubmit={onSubmit}
     validate={values => {
@@ -61,6 +63,11 @@ export const hospitalForm: React.FC<FormProps> = ({ onSubmit, onCancel, diagnosi
         } else if (!isString(values.specialist)) {
         errors.specialist = stringError;
         }
+        if (!values.employerName) {
+          errors.employerName = requiredError;
+          } else if (!isString(values.employerName)) {
+          errors.employerName = stringError;
+          }
         if (!values.diagnosisCodes) {
         errors.diagnosisCodes = requiredError;
         }
@@ -71,39 +78,45 @@ export const hospitalForm: React.FC<FormProps> = ({ onSubmit, onCancel, diagnosi
         return (
         <Form className="form ui">
             <Field
-            label="Description"
-            placeholder="Description"
-            name="description"
-            component={TextField}
+              label="Description"
+              placeholder="Description"
+              name="description"
+              component={TextField}
             />
             <Field
-            label="Date"
-            placeholder="YYYY-MM-DD"
-            name="date"
-            component={TextField}
+              label="Date"
+              placeholder="YYYY-MM-DD"
+              name="date"
+              component={TextField}
             />
             <Field
-            label="Specialist"
-            placeholder="Specialist"
-            name="specialist"
-            component={TextField}
+              label="Specialist"
+              placeholder="Specialist"
+              name="specialist"
+              component={TextField}
             />
             <DiagnosisSelection
-            setFieldValue={setFieldValue}
-            setFieldTouched={setFieldTouched}
-            diagnoses={Object.values(diagnosis)}
+              setFieldValue={setFieldValue}
+              setFieldTouched={setFieldTouched}
+              diagnoses={Object.values(diagnosis)}
             />
             <Field
-                  label="Discharge Date"
-                  placeholder="YYYY-MM-DD"
-                  name="discharge.date"
-                  component={TextField}
+              label="EmployerName"
+              placeholder="EmployerName"
+              name="employerName"
+              component={TextField}
             />
-                <Field
-                  label="Discharge Criteria"
-                  placeholder="Criteria"
-                  name="discharge.criteria"
-                  component={TextField}
+            <Field
+              label="SickLeave StartDate"
+              placeholder="YYYY-MM-DD"
+              name="sickLeave.startDate"
+              component={TextField}
+            />
+            <Field
+              label="SickLeave EndDate"
+              placeholder="YYYY-MM-DD"
+              name="sickLeave.endDate"
+              component={TextField}
             />
             <Grid>
             <Grid.Column floated="left" width={5}>

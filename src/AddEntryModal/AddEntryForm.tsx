@@ -1,20 +1,13 @@
 import React from "react";
-import { 
-  HealthCheckEntry, 
-  HospitalEntry,
-} from '../types';
-
 import { useStateValue } from "../state";
-import { healthForm } from "./healthForm";
-import { hospitalForm } from "./hospitalForm";
-
-export type HealthEntryFormValues = Omit<HealthCheckEntry, "id">;
-
-export type HospitalEntryFormValues = Omit<HospitalEntry, "id">;
+import { healthForm, HealthEntryFormValues } from "./healthForm";
+import { hospitalForm, HospitalEntryFormValues } from "./hospitalForm";
+import { OccupationalHealthcareFormValues, occupationalForm } from "./OccupationalForm";
 
 export type EntryFormValues = 
 | HealthEntryFormValues 
 | HospitalEntryFormValues
+| OccupationalHealthcareFormValues
 ;
 
 interface Props {
@@ -32,6 +25,8 @@ export const AddEntryForm: React.FC<Props> = ({ onSubmit, onCancel, entryType })
       return ( healthForm({ onSubmit, onCancel, diagnosis }) );
     case "Hospital":
       return ( hospitalForm({ onSubmit, onCancel, diagnosis }) );
+      case "OccupationalHealthcare":
+        return ( occupationalForm({ onSubmit, onCancel, diagnosis }) );
     default:
       throw new Error(
         `Unhandled discriminated union member: ${JSON.stringify(entryType)}`
